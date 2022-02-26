@@ -1,9 +1,9 @@
 package com.mosi.shoppingCart;
 
+import com.mosi.shoppingCart.customer.domain.Cart;
+import com.mosi.shoppingCart.customer.domain.Customer;
 import com.mosi.shoppingCart.product.domain.Product;
 import com.mosi.shoppingCart.product.domain.Products;
-import com.mosi.shoppingCart.product.repository.ProductRepo;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -48,8 +48,24 @@ public class ShoppingCartAppApplication implements CommandLineRunner {
         restTemplate().postForObject("http://localhost:8080/products", prod5, Product.class);
 
 
-
+        System.out.println("-------------Products--------------");
         System.out.println(restTemplate().getForObject("http://localhost:8080/products", Products.class));
+
+//        Customer cust1= new Customer(1l, "Musie Yemane", "musie", "mosi@1996");
+//        restTemplate().postForObject("http://localhost:8080/customer/register", cust1, Customer.class);
+//        Customer cust2= new Customer(2l, "Rahel Yemane", "rahel", "rahel@1995");
+//        restTemplate().postForObject("http://localhost:8080/customer/register", cust2, Customer.class);
+
+        System.out.println("------------------Customers------------------");
+        System.out.println(restTemplate().getForObject("http://localhost:8080/customer/login?username=musie&password=mosi@1996", Customer.class));
+
+
+        //Add product 1l to cart of customer id 1l
+        restTemplate().getForObject("http://localhost:8080/customer/"+1l+"/cart/"+ 1l+"/"+ 6, Customer.class);
+
+        //get cart of customet 1l
+        System.out.println(restTemplate().getForObject("http://localhost:8080/customer/"+1l+ "/cart", Cart.class));
+
 
 
     }
